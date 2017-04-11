@@ -1,7 +1,3 @@
-Akanksha Periwal - aperiwal
-
-Sai Harshini Nimmala - snimmala
-
 ## Optimization and Parallelization of Image Stitching
 
 We plan to optimize the image stitching pipeline that is popularly available as an OpenCV library through application of explicit parallelism directives such as those offered by Halide on a CPU. Parts of the algorithm will also be ported to a GPU to analyze and ideally improve the time required to perform the image stitching.
