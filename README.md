@@ -1,7 +1,7 @@
 # StitchIt
-Akanksha Periwal
+Akanksha Periwal - aperiwal
 
-Sai Harshini Nimmala
+Sai Harshini Nimmala - snimmala
 
 ## Optimization and Parallelization of Image Stitching
 
