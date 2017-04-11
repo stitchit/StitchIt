@@ -1,4 +1,3 @@
-# StitchIt
 Akanksha Periwal - aperiwal
 
 Sai Harshini Nimmala - snimmala
