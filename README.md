@@ -40,7 +40,7 @@ The several stages in the image processing pipeline to perform the stitch are:
 
   * We plan to implement the algorithm on a single-CPU-multi-core platform as well as a GPU. The required resources are available through the GHC machine clusters.
   
-  * We will use the source code for the image stitching class from the openCV library as the reference code for our project. [Check it out!](https://github.com/opencv/opencv/tree/master/modules/stitching/src). This code is written in C++, which works well with a lot of parallelization APIs and libraries. Python being an interpreted language would be much slower, making C++ a much better choice since we are concerned about performance more than ease of coding.
+  * We will use the source code for the image stitching class from the openCV library as the reference code for our project. [Check it out!](https://github.com/opencv/opencv/tree/master/modules/stitching/src) This code is written in C++, which works well with a lot of parallelization APIs and libraries. Python being an interpreted language would be much slower, making C++ a much better choice since we are concerned about performance more than ease of coding.
   
   * We plan to explore Halide to help us apply our image processing optimizations more rapidly. Further, Halide is embedded into C++, making our language choice effective.
 
