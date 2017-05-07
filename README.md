@@ -1,6 +1,6 @@
 ## Optimization and Parallelization of Image Stitching
 
-We plan to optimize the image stitching pipeline that is used to create panoramas of several images through application of explicit parallelism directives such as those offered by Halide on a CPU. Parts of the algorithm will also be ported to a GPU to analyze and ideally improve the time required to perform the image stitching.
+We plan to optimize the image stitching pipeline that is used to create panoramas of several images through application of explicit parallelism directives such as those offered by Halide on a CPU.
 
 
 
@@ -38,7 +38,7 @@ The several stages in the image processing pipeline to perform the stitch are:
 
 ### Resources & Platform Choice
 
-  * We plan to implement the algorithm on a single-CPU-multi-core platform as well as a GPU. The required resources are available through the GHC machine clusters.
+  * We plan to implement the algorithm on a single-CPU-multi-core platform. The required resources are available through the GHC machine clusters.
   
   * We will use the source code from OpenPano, the open source panorama stitcher suite as the reference code for our project. [Check it out!](https://github.com/ppwwyyxx/OpenPano) This code is written in C++, which works well with a lot of parallelization APIs and libraries. Python being an interpreted language would be much slower, making C++ a much better choice since we are concerned about performance more than ease of coding.
   
@@ -50,13 +50,11 @@ The several stages in the image processing pipeline to perform the stitch are:
 
   * To significantly improve execution time of image stitching compared to OpenPano
   
-  * Determine execution time differences between different stages of our implementation (on CPU/on GPU/combinations thereof) compared to the baseline code
+  * Determine execution time differences between different stages of our implementation compared to the baseline code
   
   * Study the impact of the stitcher on images with different resolutions
   
-  * Determine the tradeoffs between computation speed and communication overhead when using a GPU implementation for specific stages of the pipeline
   
-
 
 ### Checkpoint Update
 
@@ -82,7 +80,7 @@ The image stitching can be broadly divided into 2 parts :
     
 PLAN AHEAD:
 1. Before 30th April:
-  * Optimize the gaussian blurring kernel – work on CPU as well as GPU implementation.
+  * Optimize the gaussian blurring kernel – work on CPU
   * Optimize extrema detection
   * Complete parallel implementation of maximum spanning tree
 
@@ -91,7 +89,6 @@ PLAN AHEAD:
   * Optimize various image processing calculations such as resizing, concatenation, cropping, transformation and color computations.
 
 3. Before 10th April:
-  * Explore GPU implementation for the other parts of the feature descriptor calculation and compare execution times.
   * Explore possible parallelization of RANSAC
 
 
