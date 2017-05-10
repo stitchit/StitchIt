@@ -8,9 +8,9 @@ Image stitching is the process of combining one or more overlapping images into 
  2. Homography and Blending (Sai Harshini)
  
 The base for our project is an open source image stiching code called OpenPano. 
-OpenPano is a well-written code, therefore requiring more innovative and indirect ways of parallelizing the code.
+OpenPano is a well-written code, therefore requiring more innovative and indirect ways of optimization.
 
-### PART1 - Keypoint Detection and Feature Descriptors 
+### PART 1 - Keypoint Detection and Feature Descriptors 
 
    * The Difference of Gaussian calculation was vectorized using SSE instrinsics. 
    * The Gaussian Blurring is a large component of the code execution. So, efforts were made to optimize this blurring :
@@ -19,19 +19,19 @@ OpenPano is a well-written code, therefore requiring more innovative and indirec
       - The code was then vectorized with SSE intrinsics (while minimizing divergence due to edge cases). However, the computation is most likely memory-bound, since the improvement in performance is only about 15-20%.
       - Currently looking into GPU implementations of the same. The naive version is slower compared to the CPU implementation (due to memory overheads). Working on a tiled version, which should result in a decent improvement.
 
-There were 2 parallel approaches taken to the Feature Descriptors :
+There were 2 parallel approaches taken to the Feature Descriptors -
 
-  (A) Optimizing using SIFT descriptors
-    * The SIFT descriptor calculation is quite optimized in the OpenPano code, and scope for optimization is pretty less in the calculation per se.
-    * Some parts of intermediate histogram calculations were vectorised/parallelised, giving about a 20% improvement in execution time in the SIFT descriptor calculation.
+  * Optimizing using SIFT descriptors
+     - The SIFT descriptor calculation is quite optimized in the OpenPano code, and scope for optimization is pretty less in the calculation per se.
+     - Some parts of intermediate histogram calculations were vectorised/parallelised, giving about a 20% improvement in execution time in the SIFT descriptor calculation.
     
-  (B) Using BRIEF Descriptors instead of SIFT
-   * BRIEF descriptors are algorithmically much less compute intensive than SIFT (and the matching involves a simple Hamming distance computation between 2 binary strings). Thus, the code was changed to use an optimized version of BRIEF descriptors instead of SIFT.
-    * Rotational invariance was added (scale invariance is also present) to make it a reasonable alternative for SIFT. However, the code is still not stable enough to replace SIFT descriptors properly (although there is a 2-2.5x improvement in time required for the descriptor calculation, with the added logic for rotational invariance). It doesn't find enough matches between some sets of input images.
+  * Using BRIEF Descriptors instead of SIFT
+     - BRIEF descriptors are algorithmically much less compute intensive than SIFT (and the matching involves a simple Hamming distance computation between 2 binary strings). Thus, the code was changed to use an optimized version of BRIEF descriptors instead of SIFT.
+     - Rotational invariance was added (scale invariance is also present) to make it a reasonable alternative for SIFT. However, the code is still not stable enough to replace SIFT descriptors properly (although there is a 2-2.5x improvement in time required for the descriptor calculation, even with the added logic for rotational invariance). It doesn't find enough matches between some sets of input images.
 
 Here is a screenshot of one of the timing comparisons of the original code and the SIFT version of the same.
 
-PART2 - 
+### PART2 - 
 
 
 ### TO BE DELIVERED ON FRIDAY :
