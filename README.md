@@ -31,7 +31,7 @@ There were 2 parallel approaches taken to the Feature Descriptors -
 
 Here is a screenshot of one of the timing comparisons of the original code and the SIFT version of the same.
 
-![Alt text](Result_CMU1.png?raw=true "Left: Original Code, Right: Modified Code")
+![Alt text](Result1.jpg?raw=true "Left: Original Code, Right: Modified Code")
 
 ### PART 2 - 
 
