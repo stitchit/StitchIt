@@ -6,6 +6,7 @@
 Image stitching is the process of combining one or more overlapping images into the end result of one seamless panoramic picture. With stitchIt, we tried to optimize two major parts of the pipeline - 
  1. Keypoint detection and feature descriptors (Akanksha Periwal)
  2. Homography and Blending (Sai Harshini)
+ 
 The base for our project is an open source image stiching code called OpenPano. 
 OpenPano is a well-written code, therefore requiring more innovative and indirect ways of parallelizing the code.
 
