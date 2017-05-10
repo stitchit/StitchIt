@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------------------
-                           PROJECT UPDATE - 10/05/2017
+                             PROJECT UPDATE - 10/05/2017
                                               
 ## Optimization and Parallelization of Image Stitching
 
@@ -36,14 +36,17 @@ Here is a screenshot of one of the timing comparisons of the original code and t
 ### PART 2 - 
 
 
+
 ### To Be Delivered on Friday :
 
    * Comparison of different Gaussian Blurring implementations
    * Improvements in various steps of the pipeline versus OpenPano source code
    * Comparison with OpenCV Sticher's class implementation - total execution time 
+   
+   
 
 --------------------------------------------------------------
-                           PROJECT PROPOSAL
+                               PROJECT PROPOSAL
 
 ## Optimization and Parallelization of Image Stitching
 
@@ -100,8 +103,10 @@ The several stages in the image processing pipeline to perform the stitch are:
   * Study the impact of the stitcher on images with different resolutions
   
   
+  
+  
 ------------------------------------------------------------
-                        CHECKPOINT UPDATE
+                            CHECKPOINT UPDATE
 
 ### Checkpoint Update
 
