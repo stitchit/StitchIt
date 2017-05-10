@@ -31,10 +31,12 @@ There were 2 parallel approaches taken to the Feature Descriptors -
 
 Here is a screenshot of one of the timing comparisons of the original code and the SIFT version of the same.
 
-### PART2 - 
+![Alt text](Result1.jpg?raw=true "Left: Original Code, Right: Modified Code")
+
+### PART 2 - 
 
 
-### TO BE DELIVERED ON FRIDAY :
+### To Be Delivered on Friday :
 
    * Comparison of different Gaussian Blurring implementations
    * Improvements in various steps of the pipeline versus OpenPano source code
