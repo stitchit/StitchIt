@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------------------
-                         PROJECT UPDATE - 10/05/2017
+                           PROJECT UPDATE - 10/05/2017
                                               
 ## Optimization and Parallelization of Image Stitching
 
@@ -43,7 +43,7 @@ Here is a screenshot of one of the timing comparisons of the original code and t
    * Comparison with OpenCV Sticher's class implementation - total execution time 
 
 --------------------------------------------------------------
-                        PROJECT PROPOSAL
+                           PROJECT PROPOSAL
 
 ## Optimization and Parallelization of Image Stitching
 
@@ -101,7 +101,7 @@ The several stages in the image processing pipeline to perform the stitch are:
   
   
 ------------------------------------------------------------
-                    CHECKPOINT UPDATE
+                        CHECKPOINT UPDATE
 
 ### Checkpoint Update
 
