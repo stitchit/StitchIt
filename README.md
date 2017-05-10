@@ -1,6 +1,6 @@
----------------------------------------------------------------------------------------------------------------------------
-                                              PROJECT UPDATE - 10/05/2017
----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+                         PROJECT UPDATE - 10/05/2017
+                                              
 ## Optimization and Parallelization of Image Stitching
 
 Image stitching is the process of combining one or more overlapping images into the end result of one seamless panoramic picture. With stitchIt, we tried to optimize two major parts of the pipeline - 
@@ -42,9 +42,8 @@ Here is a screenshot of one of the timing comparisons of the original code and t
    * Improvements in various steps of the pipeline versus OpenPano source code
    * Comparison with OpenCV Sticher's class implementation - total execution time 
 
----------------------------------------------------------------------------------------------------------------------------
-                                                 PROJECT PROPOSAL
----------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------
+                        PROJECT PROPOSAL
 
 ## Optimization and Parallelization of Image Stitching
 
@@ -101,9 +100,8 @@ The several stages in the image processing pipeline to perform the stitch are:
   * Study the impact of the stitcher on images with different resolutions
   
   
----------------------------------------------------------------------------------------------------------------------------
-                                                CHECKPOINT UPDATE
----------------------------------------------------------------------------------------------------------------------------  
+------------------------------------------------------------
+                    CHECKPOINT UPDATE
 
 ### Checkpoint Update
 
