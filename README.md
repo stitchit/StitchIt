@@ -55,6 +55,8 @@ The several stages in the image processing pipeline to perform the stitch are:
   * Study the impact of the stitcher on images with different resolutions
   
   
+--------------------------------------------------------------------------------------------------------------------------
+  
 
 ### Checkpoint Update
 
