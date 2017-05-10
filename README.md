@@ -1,8 +1,10 @@
+---------------------------------------------------------------------------------------------------------------------------
+                                                 PROJECT PROPOSAL
+---------------------------------------------------------------------------------------------------------------------------
+
 ## Optimization and Parallelization of Image Stitching
 
 We plan to optimize the image stitching pipeline that is used to create panoramas of several images through application of explicit parallelism directives such as those offered by Halide on a CPU.
-
-
 
 ### Background
 
@@ -55,8 +57,9 @@ The several stages in the image processing pipeline to perform the stitch are:
   * Study the impact of the stitcher on images with different resolutions
   
   
---------------------------------------------------------------------------------------------------------------------------
-  
+---------------------------------------------------------------------------------------------------------------------------
+                                                CHECKPOINT UPDATE
+---------------------------------------------------------------------------------------------------------------------------  
 
 ### Checkpoint Update
 
