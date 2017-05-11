@@ -36,9 +36,9 @@ Here is a screenshot of one of the timing comparisons of the original code (Left
      
  ![Alt text](Flower_Scale_Rotated_Matches.jpg?raw=true "BRIEF Descriptor Matching")
 
-  ![Alt text](Result_BRIEFvsSIFT_Flower.png?raw=true "BRIEF Descriptor Matching")
+The magnitude of improvement can be seen in the Descriptor Calculation and Matching steps of the screenshot below (This shows the timing comparisons of the BRIEF implementation (Left) and the optimised SIFT version (Right) for the same image inputs). However, while the matching algorithm is now pretty good now, the rest of the code still needs a little tweaking to make it as stable as the SIFT descriptor version.
 
-This shows the timing comparisons of the BRIEF implementation (Left) and the optimised SIFT version (Right) of the same. The magnitude of improvement can be seen in the Descriptor Calculation and Matching steps. However, while the matching algorithm is now pretty good now, the rest of the code still needs a little tweaking to make it as stable as the SIFT descriptor version.
+  ![Alt text](Result_BRIEFvsSIFT_Flower.png?raw=true "BRIEF Descriptor Matching")
 
 ### PART 2 - Homography and Blending
 
