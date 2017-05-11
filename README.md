@@ -11,26 +11,35 @@ OpenPano is a well-written code, therefore requiring more innovative and indirec
 
 ### PART 1 - Keypoint Detection and Feature Descriptors 
 
-   * The Difference of Gaussian calculation was vectorized using SSE instrinsics. 
+   * The Difference of Gaussian calculation was vectorized using SSE instrinsics (GPU implementation wasn't tried because of its extremely low arithemetic intensity). 
    * The Gaussian Blurring is a large component of the code execution. So, efforts were made to optimize this blurring :
       - The 2-D convolution is done as 2 1-D convolutions
       - Different chunksizes were tried for intermediate temporary arrays to store the result of the first convolution before the second one.
-      - The code was then vectorized with SSE intrinsics (while minimizing divergence due to edge cases). However, the computation is most likely memory-bound, since the improvement in performance is only about 15-20%.
-      - Currently looking into GPU implementations of the same. The naive version is slower compared to the CPU implementation (due to memory overheads). Working on a tiled version, which should result in a decent improvement.
+      - The code was then vectorized with SSE intrinsics (while minimizing divergence due to edge cases). 
+      - Currently looking into GPU implementations of the same. The naive version is slower compared to the CPU implementation (due to memory overheads). Even a tiled version of the same (with shared memory use) was slow when compared to the CPU implementation. On timing the code, it was found that 75-80% of the time in the GPU computation was taken up by the CPU to GPU memory transfers, leading to a communication bottleneck.
+      
+      ![Alt text](BlurringGraph.jpg?raw=true "Gaussian Blurring Comparison Graph")
+      
+The improving performance of the GPU with larger image sets though needs further analysis to be explained. Also, less than expected performance of the vectorised CPU code as needs more analysis.
 
 There were 2 parallel approaches taken to the Feature Descriptors -
 
   * Optimizing using SIFT descriptors
      - The SIFT descriptor calculation is quite optimized in the OpenPano code, and scope for optimization is pretty less in the calculation per se.
      - Some parts of intermediate histogram calculations were vectorised/parallelised, giving about a 20% improvement in execution time in the SIFT descriptor calculation.
+     
+Here is a screenshot of one of the timing comparisons of the original code (Left) and the optimised SIFT version (Right) of the same.
+![Alt text](Result1.jpg?raw=true "Left: Original Code, Right: Modified Code")
     
   * Using BRIEF Descriptors instead of SIFT
      - BRIEF descriptors are algorithmically much less compute intensive than SIFT (and the matching involves a simple Hamming distance computation between 2 binary strings). Thus, the code was changed to use an optimized version of BRIEF descriptors instead of SIFT.
-     - Rotational invariance was added (scale invariance is also present) to make it a reasonable alternative for SIFT. However, the code is still not stable enough to replace SIFT descriptors properly (although there is a 2-2.5x improvement in time required for the descriptor calculation, even with the added logic for rotational invariance). It doesn't find enough matches between some sets of input images.
+     - Adding rotational and scale invariance to them was challenging, but necessary to make it a reasonable alternative for SIFT. (Image shows the matches for a scaled down, rotated image),
+     
+![Alt text](Flower_Scale_Rotated_Matches.jpg?raw=true "BRIEF Descriptor Matching")
 
-Here is a screenshot of one of the timing comparisons of the original code and the SIFT version of the same.
+![Alt text](Result_BRIEFvsSIFT_Flower.png.jpg?raw=true "BRIEF Descriptor Matching")
 
-![Alt text](Result1.jpg?raw=true "Left: Original Code, Right: Modified Code")
+This shows the timing comparisons of the BRIEF implementation (Left) and the optimised SIFT version (Right) of the same. The magnitude of improvement can be seen in the Descriptor Calculation and Matching steps. However, while the matching algorithm is now pretty good now, the rest of the code still needs a little tweaking to make it as stable as the SIFT descriptor version.
 
 ### PART 2 - 
 
@@ -38,7 +47,7 @@ Here is a screenshot of one of the timing comparisons of the original code and t
 
 ### To Be Delivered on Friday :
 
-   * Comparison of different Gaussian Blurring implementations
+   * Analysis of performance results obtained till now
    * Improvements in various steps of the pipeline versus OpenPano source code
    * Comparison with OpenCV Sticher's class implementation - total execution time 
    
