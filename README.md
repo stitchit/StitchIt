@@ -18,7 +18,7 @@ OpenPano is a well-written code, therefore requiring more innovative and indirec
       - The code was then vectorized with SSE intrinsics (while minimizing divergence due to edge cases). 
       - Currently looking into GPU implementations of the same. The naive version is slower compared to the CPU implementation (due to memory overheads). Even a tiled version of the same (with shared memory use) was slow when compared to the CPU implementation. On timing the code, it was found that 75-80% of the time in the GPU computation was taken up by the CPU to GPU memory transfers, leading to a communication bottleneck.
       
-                   ![Alt text](BlurringGraph.jpg?raw=true "Gaussian Blurring Comparison Graph")
+         ![Alt text](BlurringGraph.jpg?raw=true "Gaussian Blurring Comparison Graph")
       
 The improving performance of the GPU with larger image sets though needs further analysis to be explained. Also, less than expected performance of the vectorised CPU code as needs more analysis.
 
@@ -35,9 +35,9 @@ Here is a screenshot of one of the timing comparisons of the original code (Left
      - BRIEF descriptors are algorithmically much less compute intensive than SIFT (and the matching involves a simple Hamming distance computation between 2 binary strings). Thus, the code was changed to use an optimized version of BRIEF descriptors instead of SIFT.
      - Adding rotational and scale invariance to them was challenging, but necessary to make it a reasonable alternative for SIFT. (Image shows the matches for a scaled down, rotated image),
      
-              ![Alt text](Flower_Scale_Rotated_Matches.jpg?raw=true "BRIEF Descriptor Matching")
+      ![Alt text](Flower_Scale_Rotated_Matches.jpg?raw=true "BRIEF Descriptor Matching")
 
-              ![Alt text](Result_BRIEFvsSIFT_Flower.png?raw=true "BRIEF Descriptor Matching")
+       ![Alt text](Result_BRIEFvsSIFT_Flower.png?raw=true "BRIEF Descriptor Matching")
 
 This shows the timing comparisons of the BRIEF implementation (Left) and the optimised SIFT version (Right) of the same. The magnitude of improvement can be seen in the Descriptor Calculation and Matching steps. However, while the matching algorithm is now pretty good now, the rest of the code still needs a little tweaking to make it as stable as the SIFT descriptor version.
 
