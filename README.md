@@ -88,7 +88,7 @@ The figure belows shows the matches between an image and a rotated + scaled down
 
 Here's a brief overview of the timing breakup for the original SIFT implementation, optimized SIFT implementation and the BRIEF implementation for a pair of input images.
 
-Base Code            |   
+Base Code        
 ![Alt text](Original_Timing_Flower_Mod.JPG?raw=true "SiftOpt")
 
 Optimized code (with SIFT descriptors) 
@@ -97,7 +97,8 @@ Optimized code (with SIFT descriptors)
 Modified code (with BRIEF descriptors)
 ![Alt text](BRIEF_Timing_Flower_Mod.JPG?raw=true "SiftOpt")
 
-The optimization of the Gaussian Blurring and the DoG calculation along with the SIFT optimizations resulted in speedups of about 
+The optimization of the Gaussian Blurring and the DoG calculation along with the SIFT optimizations resulted in speedups of about 1.5x. While this speedup may seem very small, it must be taken into consideration that (1) our baseline code was quite optimized (b) and more importantly, there are some parts of the pipeline that are intensive (orientation histogram computation for every keypoint, Blending) and/or sequential (RANSAC, Camera Estimation), limiting the total speedup of the panorama creation. 
+The breakups shown in the graph below are the major portions where the optimizations have been done.
 
 ![Alt text](SIFTOptimizationGraph.jpg?raw=true "SiftOpt")
 
