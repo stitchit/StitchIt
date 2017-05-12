@@ -10,13 +10,11 @@ The image stitching pipeline can be broken up into 2 major chunks :
 
 (a) Keypoint Detection and Feature Descriptors
 
-<p align="center">
 ![Alt text](Pipeline_FeatureMatching.jpg?raw=true "Feature")
-</p>
 
 (b) Homography and Blending
 
-![Alt text](Pipeline_BlendingAndHomography.JPG?raw=true "Blending")
+![Alt text](Pipeline_HomographyAndBlending.JPG?raw=true "Blending")
 
 The baseline code for our implementation was OpenPano, an open-source image stitching code in C++ (coded by a CMU student who has taken 15418 in the past, therefore the code was well-written and already had all basic optimizations in place). 
 
@@ -100,14 +98,15 @@ Using BRIEF descriptors over SIFT gives 10x improvement in descriptor calculatio
 ### Division of Work
 
   * Akanksha Periwal (aperiwal) :
-    Gaussian Blurring Implementations, SIFT Optimization, BRIEF descriptor implementation 
+    Gaussian Blurring Implementations, SIFT Optimization, BRIEF descriptor implementation, rotational invariance and optimization 
     
   * Sai Harshini (snimmala) :
     Homography and Blending
 
+---
+---
    
-   
-                                  CHECKPOINT UPDATE
+# CHECKPOINT UPDATE
 
 ### Checkpoint Update
 
