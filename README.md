@@ -90,7 +90,7 @@ The figure belows shows the matches between an image and a rotated + scaled down
 
 ![Alt text](SIFTvsBRIEF.jpg?raw=true "SIFT vs BRIEF")
 
-Using BRIEF descriptors over SIFT gives 10x improvement in descriptor calculation, and 3.5-4x improvement in keypoint matching(which contribute about 15% to the total execution time).
+Using BRIEF descriptors over SIFT gives 10x improvement in descriptor calculation, and 3.5-4x improvement in keypoint matching (which contribute about 15% to the total execution time).
 
 ----
 
@@ -106,8 +106,8 @@ Using BRIEF descriptors over SIFT gives 10x improvement in descriptor calculatio
   * Sai Harshini (snimmala) :
     Homography and Blending
 
---
---
+----
+----
    
 # CHECKPOINT UPDATE
 
@@ -146,8 +146,8 @@ PLAN AHEAD:
 3. Before 10th April:
   * Explore possible parallelization of RANSAC
 
---
---
+----
+----
    
 # PROJECT PROPOSAL
 
