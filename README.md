@@ -102,7 +102,9 @@ Modified code (with BRIEF descriptors)
 
   * The optimization of the Gaussian Blurring and the DoG calculation along with the SIFT optimizations resulted in speedups of about 1.5x. The overall speedups remain relatively the same for different image sizes. 
   
+  
 As the number of input images increase, there is an increase in the (i) Matching time - every image needs to be matched against every other image, and (ii) Blending time - since the output image is larger. Thus, these execution times become more significant that the time required for blurring and descriptor calculation, leading to decreased overall speedups. (Results for 36 input images not shown in the graph for clarity)
+
   
 While this speedup may seem very small, it must be taken into consideration that (a) our baseline code was quite optimized (b) and more importantly, there are some parts of the pipeline that are intensive (orientation histogram computation for every keypoint, Blending) and/or sequential (RANSAC, Camera Estimation), limiting the total speedup of the panorama creation. 
 The breakups shown in the graph below are the major portions where the optimizations have been done.
