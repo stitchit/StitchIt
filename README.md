@@ -82,7 +82,7 @@ The figure belows shows the matches between an image and a rotated + scaled down
      
  ![Alt text](Flower_Scale_Rotated_Matches.jpg?raw=true "BRIEF Descriptor Matching")
  
- While the descriptors give good matches now, they still not as stable as the SIFT descriptors, and don't give panoramas for some image sets. Further parameter tuning is required for the matching, as those parameters differ from the ones optimal for SIFT.
+ While the descriptors give good matches now, they still are not as stable as the SIFT descriptors, and don't give panoramas for some image sets. Further parameter tuning is required for the matching, as those parameters differ from the ones optimal for SIFT.
 
 ### Results
 
@@ -101,13 +101,15 @@ Modified code (with BRIEF descriptors)
 ![Alt text](BRIEF_Timing_Flower_Mod.JPG?raw=true "SiftOpt")
 
   * The optimization of the Gaussian Blurring and the DoG calculation along with the SIFT optimizations resulted in speedups of about 1.5x. The overall speedups remain relatively the same for different image sizes. 
-  As the number of input images increase, there is an increase in the (i) Matching time - every image needs to be matched against every other image, and (ii) Blending time - since the output image is larger. Thus, these execution times become more significant that the time required for blurring and descriptor calculation, leading to decreased overall speedups. (Results for 36 input images not shown in the graph for clarity)
- While this speedup may seem very small, it must be taken into consideration that (a) our baseline code was quite optimized (b) and more importantly, there are some parts of the pipeline that are intensive (orientation histogram computation for every keypoint, Blending) and/or sequential (RANSAC, Camera Estimation), limiting the total speedup of the panorama creation. 
+  
+As the number of input images increase, there is an increase in the (i) Matching time - every image needs to be matched against every other image, and (ii) Blending time - since the output image is larger. Thus, these execution times become more significant that the time required for blurring and descriptor calculation, leading to decreased overall speedups. (Results for 36 input images not shown in the graph for clarity)
+  
+While this speedup may seem very small, it must be taken into consideration that (a) our baseline code was quite optimized (b) and more importantly, there are some parts of the pipeline that are intensive (orientation histogram computation for every keypoint, Blending) and/or sequential (RANSAC, Camera Estimation), limiting the total speedup of the panorama creation. 
 The breakups shown in the graph below are the major portions where the optimizations have been done.
 
 ![Alt text](SIFTOptimizationGraph.jpg?raw=true "SiftOpt")
 
-  * Using BRIEF descriptors over SIFT gives 10x improvement in descriptor calculation, and 3.5-4x improvement in keypoint matching (which contribute about 15% to the total execution time).
+  * Using BRIEF descriptors over SIFT gives 10x improvement in descriptor calculation, and 3.5-4x improvement in keypoint matching (which contribute about 15% to the total execution time). The results here are between different image pairs of 2 size ranges (multiple input images are still not stable enough for using BRIEF descriptors)
 
 ![Alt text](SIFTvsBRIEF.jpg?raw=true "SIFT vs BRIEF")
 
