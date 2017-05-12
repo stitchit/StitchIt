@@ -1,58 +1,94 @@
-                             PROJECT UPDATE - 10/05/2017
+                              FINAL REPORT
                                               
-## Optimization and Parallelization of Image Stitching
+# Optimization and Parallelization of Image Stitching
 
-Image stitching is the process of combining one or more overlapping images into the end result of one seamless panoramic picture. With stitchIt, we tried to optimize two major parts of the pipeline - 
- 1. Keypoint detection and feature descriptors (Akanksha Periwal)
- 2. Homography and Blending (Sai Harshini)
- 
-The base for our project is an open source image stiching code called OpenPano. 
-OpenPano is a well-written code, therefore requiring more innovative and indirect ways of optimization.
+Image stitching is the process of combining one or more overlapping images into the end result of one seamless panoramic picture. Our aim was to analyse and try to improve the performance of different stages of the image stiching pipeline. We obtained a 1.5x speedup in the total execution time of the stiching algorithm using SIFT descriptors. We also explored the usage of optimized rotational invariant BRIEF descriptors for the feature descriptor computation, which were seen to be an order of magnitude faster than the optimized SIFT descriptors.
 
-### PART 1 - Keypoint Detection and Feature Descriptors 
+# Background
 
-   * The Difference of Gaussian calculation was vectorized using SSE instrinsics (GPU implementation wasn't tried because of its extremely low arithemetic intensity). 
-   * The Gaussian Blurring is a large component of the code execution. So, efforts were made to optimize this blurring :
-      - Different chunksizes were tried for intermediate temporary arrays to store the result of the first convolution before the second one.
-      - The code was then vectorized with SSE intrinsics (while minimizing divergence due to edge cases). 
-      - GPU implementations : The naive version is slower compared to the CPU implementation (due to memory overheads). Even a tiled version of the same (with shared memory use) was slow when compared to the CPU implementation. On timing the code, it was found that 75-80% of the time in the GPU computation was taken up by the CPU to GPU memory transfers, leading to a communication bottleneck.
+The image stitching pipeline can be broken up into 2 major chunks :
+
+![Alt text](Pipeline_FeatureMatching.jpg?raw=true "Feature")
+
+![Alt text](Pipeline_BlendingAndHomography.jpg?raw=true "Blending")
+
+The baseline code for our implementation was OpenPano, an open-source image stitching code in C++ (coded by a CMU student who has taken 15418 in the past, therefore the code was well-written and already had all basic optimizations in place). 
+
+----
+
+## PART 1 - Keypoint Detection and Feature Descriptors (Akanksha Periwal)
+
+(A) GAUSSIAN BLURRING :
+
+The blurring kernel is called multiple times for the DoG computation, and consumes a significant amount of execution time. Therefore, different implementations of the same were tried. All of mentioned implementations involved doing separable 1D convolutions instead of a 2-D convolution-
+
+   * Naive CPU implementation :
+This is just the straightforward way with an imaged sized temporary array following a horizontal blur, which is then convolved with a vertical blurring kernel. 
+This is clearly memory-bottlenecked, and was implemented just to see the improvement other implementations give.
+
+  * OpenPano Implementation :
+The OpenPano implementation takes one row or column at a time, copies it into a temporary array and then applies the convolution on it before storing it into the result array itself.
+The memory storage overhead in this case is a just an array of max(height/width) of the input image. However, the number of memory loads and stores would still be high, because the entire result array is filled by the horizontal blur before moving onto the vertical blur.
+
+  * Using SSE2 vector intrinsics with chunking :
+Here, the non-edge case pixels were convolved horizontally using SIMD instructions. However, SSE doesn't support gather instructions, so this could be done only for one of the 1D convolutions.
+Storing the intermediate temp array in column major order was tried (which would again allow a horizontal blur like load instruction). However, this was not helpful in improving the execution time. 
+
+  * Naive GPU implementation :
+This was just a CUDA version of the naive CPU version.
+
+  * GPU Implementation : Using Tiling + Shared Memory
+Here, every block was responsible for a small patch of the input image.Every thread in the block would load a different pixel, and then compute the horizontal and vertical convolution on a pixel, with the intermediate temporary result array stored in the shared memory.
+
+The two GPU implementations had execution times higher than the original implementation, so the code was profiled to see the time distribution between the CPU-GPU transfers and the actual kernel computation. In all the cases, nearly 75-80% of the time was involved in the memcpy (slightly bigger images were marginally better), thus making these GPU implementations unsuitable for images of the given size (around 400kB).
+
+However, the feature detection involves computation multiple blurs of different scales on the same image. Thus, instead of copying the image to the device memory everytime, the same image is reused for all the different scale computations. 
+
+The timing comparisons between the different implementations can be seen below :
+
+![Alt text](BlurringComparisons_1.jpg?raw=true "BlurringComparisons")
+
+The SSE vector instrincs implementation is not as impressive as one would expect it to be. This is because the SIMD execution implemented in the kernel is limited to only one of the two 1-D convolutions involved, and there were additional divergent edge cases.
+
+The GPU implementation with the intelligent memory transfers performs pretty well, and is close to, and mostly better than the CPU vector instrinsics version.
+
+In the GPU implementations , it can be seen that the execution times improved as the number of calls to the kernel increased. Since there is no carrying of state between calls (in the first two implementations atleast), and the calls are not pipelines (which could have lead to some initial memory transfer latency hiding), this observation is rather puzzling. 
       
-![Alt text](BlurringGraph.jpg?raw=true "Gaussian Blurring Comparison Graph")
-      
-The improving performance of the GPU with larger image sets though needs further analysis to be explained. Also, less than expected performance of the vectorised CPU code as needs more analysis.
+(B) As seen from the GPU implementation of the blurring, the communication overhead is too much between the CPU and GPU. Thus, we chose to go with a SIMD calcution of the difference of Gaussian layers, which gave the expected 3.5-4x speedup in the DoG computation.  
+
+(C) FEATURE DESCIPTORS 
 
 There were 2 parallel approaches taken to the Feature Descriptors -
 
-  * Optimizing using SIFT descriptors:
-     - The SIFT descriptor calculation is quite optimized in the OpenPano code, and scope for optimization is pretty less in the calculation per se.
-     - Some parts of intermediate histogram calculations were vectorised/parallelised, giving about a 20% improvement in execution time in the SIFT descriptor calculation.
-     
-Here is a screenshot of one of the timing comparisons of the original code (Left) and the optimised SIFT version (Right) of the same.
-![Alt text](Result1.jpg?raw=true "Left: Original Code, Right: Modified Code")
-    
-  * Using BRIEF Descriptors instead of SIFT:
-     - BRIEF descriptors are algorithmically much less compute intensive than SIFT (and the matching involves a simple Hamming distance computation between 2 binary strings). Thus, the code was changed to use an optimized version of BRIEF descriptors instead of SIFT.
-     - Adding rotational and scale invariance to them was challenging, but necessary to make it a reasonable alternative for SIFT. For rotational invariance, instead of rotating the image, rotated version of the sampling points were [re-computed to save computational cost (Image shows the matches for an image with a scaled down, rotated version of itself)
+   * The SIFT computation in the OpenPano source code was fairly well-written. A few parallelizations (in the magnitude, orientation calculations) and minor optimizations/SIMD vectorizations (in the histogram calculation) were made, leading to a small improvement in the time required for computation for the descriptors. However, the optimization possible with SIFT is fairly limited (beyond multicore parallelizations).
+
+   * Thus, a parallel approach taken to explore optimizing the feature descriptor calculation using BRIEF descriptors.
+BRIEF descriptors are binary descriptors, which are less compute intensive to compute and also to match. 
+
+*SIFT descriptors are calculated by taking a weighted histogram of the orientations of the points in a patch around the keypoint, which need to be then matches using a Euclidean distance computation.
+BRIEF descriptors on the other hand are binary strings of intensity comparisons between sampled points in a patch around the keypoint, and are matched using a simple hamming distance computation. (xor and sum of the two strings)*
+
+The BRIEF descriptors were coded into the feature calculation algorithm, with vectorised version of Hamming distance calculation (using fast hardware popcount instructions). (Took care of reducing memory accesses and sampling point storage patterns that would lead to less cache misses)
+
+   * However, the problem is that BRIEF descriptors are not rotationally invariant.  Adding rotational and scale invariance to them was challenging, but necessary to make it a reasonable alternative for SIFT. One way of doing that would be rotating the sub-patch in the image based on its orientation and then computing the descriptor around it. However, this is computationally very expensive.
+
+To reduce the computational cost of adding rotational invariance, a set of sampling patterns for discrete angles of rotation were pre-computed. A simple spatially weighted mean was used to determine the orientation of a keypoint, and this orientation was used to choose the set of sampling points needed for the BRIEF descriptor computation.
+
+The figure belows shows the matches between an image and a rotated + scaled down version of it (therefore making the BRIEF descriptor scale and rotation invariant):
      
  ![Alt text](Flower_Scale_Rotated_Matches.jpg?raw=true "BRIEF Descriptor Matching")
 
-The magnitude of improvement can be seen in the Descriptor Calculation and Matching steps between the two kinds of feature descriptor can be seen in the given screenshot (This shows the timing comparisons of the BRIEF implementation (Left) and the optimised SIFT version (Right) for the same image inputs). However, while the matching algorithm is now pretty good now, the rest of the code still needs a some modifications to make it as stable as the SIFT descriptor version.
+### Timing Results
 
-  ![Alt text](Result_BRIEFvsSIFT_Flower.png?raw=true "BRIEF Descriptor Matching")
+![Alt text](SiftOptimizationGraph.jpg?raw=true "SiftOpt")
 
-### PART 2 - Homography and Blending
+![Alt text](SIFTvsBRIEF.jpg?raw=true "SIFT vs BRIEF")
 
--------------------------------------------------------------------
+Using BRIEF descriptors over SIFT gives 10x improvement in descriptor calculation, and 3.5-4x improvement in keypoint matching(which contribute about 15% to the total execution time).
+
+## PART 2 - Homography and Blending (Sai Harshini)
 
 
-### To Be Delivered on Friday :
-
-   * Analysis of performance results obtained till now
-   * Improvements in various steps of the pipeline versus OpenPano source code
-   * Total execution time comparison with OpenCV Sticher's class implementation 
-   
-   
-   
    
    
                                   CHECKPOINT UPDATE
