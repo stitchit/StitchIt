@@ -1,4 +1,4 @@
-                              FINAL REPORT
+# FINAL REPORT
                                               
 # Optimization and Parallelization of Image Stitching
 
@@ -10,7 +10,9 @@ The image stitching pipeline can be broken up into 2 major chunks :
 
 (a) Keypoint Detection and Feature Descriptors
 
+<p align="center">
 ![Alt text](Pipeline_FeatureMatching.jpg?raw=true "Feature")
+</p>
 
 (b) Homography and Blending
 
