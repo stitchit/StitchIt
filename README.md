@@ -86,7 +86,7 @@ The figure belows shows the matches between an image and a rotated + scaled down
 
 ### Results
 
-![Alt text](SiftOptimizationGraph.jpg?raw=true "SiftOpt")
+![Alt text](SIFTOptimizationGraph.jpg?raw=true "SiftOpt")
 
 ![Alt text](SIFTvsBRIEF.jpg?raw=true "SIFT vs BRIEF")
 
