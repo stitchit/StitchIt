@@ -8,15 +8,19 @@ Image stitching is the process of combining one or more overlapping images into 
 
 The image stitching pipeline can be broken up into 2 major chunks :
 
+(a) Keypoint Detection and Feature Descriptors
+
 ![Alt text](Pipeline_FeatureMatching.jpg?raw=true "Feature")
 
-![Alt text](Pipeline_BlendingAndHomography.jpg?raw=true "Blending")
+(b) Homography and Blending
+
+![Alt text](Pipeline_BlendingAndHomography.JPG?raw=true "Blending")
 
 The baseline code for our implementation was OpenPano, an open-source image stitching code in C++ (coded by a CMU student who has taken 15418 in the past, therefore the code was well-written and already had all basic optimizations in place). 
 
 ----
 
-## PART 1 - Keypoint Detection and Feature Descriptors (Akanksha Periwal)
+## PART 1 - Keypoint Detection and Feature Descriptors
 
 (A) GAUSSIAN BLURRING :
 
@@ -77,8 +81,10 @@ To reduce the computational cost of adding rotational invariance, a set of sampl
 The figure belows shows the matches between an image and a rotated + scaled down version of it (therefore making the BRIEF descriptor scale and rotation invariant):
      
  ![Alt text](Flower_Scale_Rotated_Matches.jpg?raw=true "BRIEF Descriptor Matching")
+ 
+ While the descriptors give good matches now, they still not as stable as the SIFT descriptors, and don't give panoramas for some image sets.
 
-### Timing Results
+### Results
 
 ![Alt text](SiftOptimizationGraph.jpg?raw=true "SiftOpt")
 
@@ -86,8 +92,16 @@ The figure belows shows the matches between an image and a rotated + scaled down
 
 Using BRIEF descriptors over SIFT gives 10x improvement in descriptor calculation, and 3.5-4x improvement in keypoint matching(which contribute about 15% to the total execution time).
 
-## PART 2 - Homography and Blending (Sai Harshini)
+## PART 2 - Homography and Blending
 
+
+### Division of Work
+
+  * Akanksha Periwal (aperiwal) :
+    Gaussian Blurring Implementations, SIFT Optimization, BRIEF descriptor implementation 
+    
+  * Sai Harshini (snimmala) :
+    Homography and Blending
 
    
    
