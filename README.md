@@ -50,7 +50,7 @@ However, the feature detection involves computation multiple blurs of different 
 
 The timing comparisons between the different implementations can be seen below :
 
-![Alt text](BlurringComparisons_1.jpg?raw=true "BlurringComparisons")
+![Alt text](BlurringComparisons.jpg?raw=true "BlurringComparisons")
 
 The SSE vector instrincs implementation is not as impressive as one would expect it to be. This is because the SIMD execution implemented in the kernel is limited to only one of the two 1-D convolutions involved, and there were additional divergent edge cases.
 
