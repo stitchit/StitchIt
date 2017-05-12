@@ -76,7 +76,7 @@ The BRIEF descriptors were coded into the feature calculation algorithm, with ve
 
    * However, the problem is that BRIEF descriptors are not rotationally invariant.  Adding rotational and scale invariance to them, without increasing the computation cost by much, was challenging but necessary to make this a reasonable alternative for SIFT. One way of doing that would be rotating the sub-patch in the image based on its orientation and then computing the descriptor around it. However, this is computationally very expensive.
 
-SOLUTION : To reduce the computational cost of adding rotational invariance, a set of sampling patterns for discrete angles of rotation were pre-computed. A simple spatially weighted mean was used to determine the orientation of a keypoint, and this orientation was used to choose the set of sampling points needed for the BRIEF descriptor computation.
+SOLUTION : To reduce the computational cost of adding rotational invariance, a set of sampling patterns for discrete angles of rotation were pre-computed. A simple spatially weighted mean was used to determine the orientation of a keypoint, and this orientation was used to choose the set of sampling points needed for the BRIEF descriptor computation (similar to what ORB does).
 
 The figure belows shows the matches between an image and a rotated + scaled down version of it (therefore making the BRIEF descriptor scale and rotation invariant):
      
