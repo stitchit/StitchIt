@@ -88,9 +88,9 @@ The figure belows shows the matches between an image and a rotated + scaled down
 
 Here's a brief overview of the timing breakup for the original SIFT implementation, optimized SIFT implementation and the BRIEF implementation.
 
-Base Code            |  Optimized code (with SIFT descriptors)
-:-------------------------:|:-------------------------:
-![Alt text](SIFTOptimizationGraph.jpg?raw=true "SiftOpt")  | ![Alt text](SIFTOptimizationGraph.jpg?raw=true "SiftOpt")
+Base Code            |  Optimized code (with SIFT descriptors) |  Optimized code (with SIFT descriptors) |
+:-------------------------:|:-------------------------:|:-------------------------:|
+![Alt text](Original_Timing_Flower_Mod.JPG?raw=true "SiftOpt") | ![Alt text](SIFT_Timing_Flower_Mod.JPG?raw=true "SiftOpt") | ![Alt text](BRIEF_Timing_Flower_Mod.JPG?raw=true "SiftOpt") |
 
 The optimization of the Gaussian Blurring and the DoG calculation along with the SIFT optimizations resulted in speedups of about 
 
