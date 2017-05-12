@@ -76,21 +76,29 @@ The BRIEF descriptors were coded into the feature calculation algorithm, with ve
 
    * However, the problem is that BRIEF descriptors are not rotationally invariant.  Adding rotational and scale invariance to them was challenging, but necessary to make it a reasonable alternative for SIFT. One way of doing that would be rotating the sub-patch in the image based on its orientation and then computing the descriptor around it. However, this is computationally very expensive.
 
-To reduce the computational cost of adding rotational invariance, a set of sampling patterns for discrete angles of rotation were pre-computed. A simple spatially weighted mean was used to determine the orientation of a keypoint, and this orientation was used to choose the set of sampling points needed for the BRIEF descriptor computation.
+SOLUTION : To reduce the computational cost of adding rotational invariance, a set of sampling patterns for discrete angles of rotation were pre-computed. A simple spatially weighted mean was used to determine the orientation of a keypoint, and this orientation was used to choose the set of sampling points needed for the BRIEF descriptor computation.
 
 The figure belows shows the matches between an image and a rotated + scaled down version of it (therefore making the BRIEF descriptor scale and rotation invariant):
      
  ![Alt text](Flower_Scale_Rotated_Matches.jpg?raw=true "BRIEF Descriptor Matching")
  
- While the descriptors give good matches now, they still not as stable as the SIFT descriptors, and don't give panoramas for some image sets.
+ While the descriptors give good matches now, they still not as stable as the SIFT descriptors, and don't give panoramas for some image sets. Further parameter tuning is required for the matching, as those parameters differ from the ones optimal for SIFT.
 
 ### Results
 
+Here's a brief overview of the timing breakup for the original SIFT implementation, optimized SIFT implementation and the BRIEF implementation.
+
+Base Code            |  Optimized code (with SIFT descriptors)
+:-------------------------:|:-------------------------:
+![Alt text](SIFTOptimizationGraph.jpg?raw=true "SiftOpt")  | ![Alt text](SIFTOptimizationGraph.jpg?raw=true "SiftOpt")
+
+The optimization of the Gaussian Blurring and the DoG calculation along with the SIFT optimizations resulted in speedups of about 
+
 ![Alt text](SIFTOptimizationGraph.jpg?raw=true "SiftOpt")
 
-![Alt text](SIFTvsBRIEF.jpg?raw=true "SIFT vs BRIEF")
-
 Using BRIEF descriptors over SIFT gives 10x improvement in descriptor calculation, and 3.5-4x improvement in keypoint matching (which contribute about 15% to the total execution time).
+
+![Alt text](SIFTvsBRIEF.jpg?raw=true "SIFT vs BRIEF")
 
 ----
 
