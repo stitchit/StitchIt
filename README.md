@@ -74,7 +74,7 @@ BRIEF descriptors on the other hand are binary strings of intensity comparisons 
 
 The BRIEF descriptors were coded into the feature calculation algorithm, with vectorised version of Hamming distance calculation (using fast hardware popcount instructions). (Took care of reducing memory accesses and sampling point storage patterns that would lead to less cache misses)
 
-   * However, the problem is that BRIEF descriptors are not rotationally invariant.  Adding rotational and scale invariance to them was challenging, but necessary to make it a reasonable alternative for SIFT. One way of doing that would be rotating the sub-patch in the image based on its orientation and then computing the descriptor around it. However, this is computationally very expensive.
+   * However, the problem is that BRIEF descriptors are not rotationally invariant.  Adding rotational and scale invariance to them, without increasing the computation cost by much, was challenging but necessary to make this a reasonable alternative for SIFT. One way of doing that would be rotating the sub-patch in the image based on its orientation and then computing the descriptor around it. However, this is computationally very expensive.
 
 SOLUTION : To reduce the computational cost of adding rotational invariance, a set of sampling patterns for discrete angles of rotation were pre-computed. A simple spatially weighted mean was used to determine the orientation of a keypoint, and this orientation was used to choose the set of sampling points needed for the BRIEF descriptor computation.
 
