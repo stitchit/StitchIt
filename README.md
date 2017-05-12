@@ -50,7 +50,7 @@ However, the feature detection involves computation multiple blurs of different 
 
 The timing comparisons between the different implementations can be seen below :
 
-![Alt text](BlurringComparisons_1 (1).jpg?raw=true "BlurringComparisons")
+![Alt text](BlurringComparisons_2.jpg?raw=true "BlurringComparisons")
 
 The SSE vector instrincs implementation is not as impressive as one would expect it to be. This is because the SIMD execution implemented in the kernel is limited to only one of the two 1-D convolutions involved, and there were additional divergent edge cases.
 
@@ -92,8 +92,11 @@ The figure belows shows the matches between an image and a rotated + scaled down
 
 Using BRIEF descriptors over SIFT gives 10x improvement in descriptor calculation, and 3.5-4x improvement in keypoint matching(which contribute about 15% to the total execution time).
 
+----
+
 ## PART 2 - Homography and Blending
 
+----
 
 ### Division of Work
 
@@ -103,8 +106,8 @@ Using BRIEF descriptors over SIFT gives 10x improvement in descriptor calculatio
   * Sai Harshini (snimmala) :
     Homography and Blending
 
----
----
+--
+--
    
 # CHECKPOINT UPDATE
 
@@ -143,9 +146,10 @@ PLAN AHEAD:
 3. Before 10th April:
   * Explore possible parallelization of RANSAC
 
-
+--
+--
    
-                               PROJECT PROPOSAL
+# PROJECT PROPOSAL
 
 ## Optimization and Parallelization of Image Stitching
 
