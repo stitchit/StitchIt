@@ -16,7 +16,7 @@ The image stitching pipeline can be broken up into 2 major chunks :
 
 ![Alt text](Pipeline_HomographyAndBlending.JPG?raw=true "Blending")
 
-The baseline code for our implementation was OpenPano, an open-source image stitching code in C++ (coded by a CMU student who has taken 15418 in the past, therefore the code was well-written and already had all basic optimizations in place). 
+The baseline code for our implementation was OpenPano, an open-source image stitching code in C++ (coded by a CMU student who has taken 15418 in the past, therefore the code was well-written and already had all basic optimizations in place. It has omp pragmas for using mutiple cores as well). 
 
 ----
 
@@ -86,7 +86,7 @@ The figure belows shows the matches between an image and a rotated + scaled down
 
 ### Results
 
-Here's a brief overview of the timing breakup for the original SIFT implementation, optimized SIFT implementation and the BRIEF implementation for a pair of input images.
+  * Here's a brief overview of the timing breakup for the original SIFT implementation, optimized SIFT implementation and the BRIEF implementation for a pair of input images.
 
 Base Code        
 
@@ -100,12 +100,12 @@ Modified code (with BRIEF descriptors)
 
 ![Alt text](BRIEF_Timing_Flower_Mod.JPG?raw=true "SiftOpt")
 
-The optimization of the Gaussian Blurring and the DoG calculation along with the SIFT optimizations resulted in speedups of about 1.5x. While this speedup may seem very small, it must be taken into consideration that (1) our baseline code was quite optimized (b) and more importantly, there are some parts of the pipeline that are intensive (orientation histogram computation for every keypoint, Blending) and/or sequential (RANSAC, Camera Estimation), limiting the total speedup of the panorama creation. 
+  * The optimization of the Gaussian Blurring and the DoG calculation along with the SIFT optimizations resulted in speedups of about 1.5x. While this speedup may seem very small, it must be taken into consideration that (1) our baseline code was quite optimized (b) and more importantly, there are some parts of the pipeline that are intensive (orientation histogram computation for every keypoint, Blending) and/or sequential (RANSAC, Camera Estimation), limiting the total speedup of the panorama creation. 
 The breakups shown in the graph below are the major portions where the optimizations have been done.
 
 ![Alt text](SIFTOptimizationGraph.jpg?raw=true "SiftOpt")
 
-Using BRIEF descriptors over SIFT gives 10x improvement in descriptor calculation, and 3.5-4x improvement in keypoint matching (which contribute about 15% to the total execution time).
+  * Using BRIEF descriptors over SIFT gives 10x improvement in descriptor calculation, and 3.5-4x improvement in keypoint matching (which contribute about 15% to the total execution time).
 
 ![Alt text](SIFTvsBRIEF.jpg?raw=true "SIFT vs BRIEF")
 
