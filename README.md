@@ -158,6 +158,10 @@ There are more operations to the blending, such as inverse transformation and bi
 
 Graph: The graph indicates the execution time in milliseconds of the various implementations of the blending stage as explained above. For a wider perspective, the blending is performed for image-stitching on a range of number of images and image sizes. All implementations were run on the CPUs of the GHC machine cluster (Intel Core i7 3.2 GHz 8-core processors).
 
+(B) HOMOGRAPHY
+
+As part of the homography matrix calculation, in the camera estimation mode when images have different focal lengths, rotation matrices of the connecting images are estimated from an initial rotation matrix and the homography. This is done by creating a pair-wise matching graph of images with weighted edges corresponding to matching confidence. Then, the estimation procedure follows a maximum spanning tree-like implementation. The goal was to parallelize the traversal of the graph. However, due to the usage of queue data structures, the parallel implementation with critical sections resulted in slower execution times.
+
 ----
 
 ### Division of Work
