@@ -170,7 +170,7 @@ Graph: The graph indicates the execution time in milliseconds of the various imp
 
 ----
 ----
-   
+[Checkpoint](CHECKPOINT.md)   
 # CHECKPOINT UPDATE
 
 ### Checkpoint Update
