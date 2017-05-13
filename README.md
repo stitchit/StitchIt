@@ -145,18 +145,16 @@ SSE2 vector intrinsics are used again but SIMD branching is eliminated from the 
 ### Results:
 
 The SIMD baseline implementation achieved marginally better speedup than the original OpenPano implementation, if not the same performance.
-
 The SIMD optimized implementation fared much better with speedup ranging from 1.2x to 1.9x.
 
 * Challenges:
 
 Based on observations of the speedup , the following conclusions can be made:
-
 Due to the conditional nature of the computations involved, there is high divergence. This resulted in sub-optimal utilization of the vector lanes and peak performance was not achieved. This is the case when the unoptimized SIMD baseline code is used.
-
 Learning from the above, a more optimized version of SIMD implementation is used, which eliminates the obstacles to speedup caused before. Speedup is significantly more noticeable, but the lack of utilization of one out of the four lanes in the vector affects the performance to an extent. 
-
 There are more operations to the blending, such as inverse transformation and bilinear interpolation with nearby pixels. Due to their sequential nature, they contribute to decrease in speedup.
+
+![Alt text](blending_comparison.jpg?raw=true "Blending Comparison")
 
 Graph: The graph indicates the execution time in milliseconds of the various implementations of the blending stage as explained above. For a wider perspective, the blending is performed for image-stitching on a range of number of images and image sizes. All implementations were run on the CPUs of the GHC machine cluster (Intel Core i7 3.2 GHz 8-core processors).
 
