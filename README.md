@@ -170,7 +170,7 @@ Graph: The graph indicates the execution time in milliseconds of the various imp
 
 ----
 ----
-[Checkpoint](https://github.com/stitchit/StitchIt/blob/master/CHECKPOINT.md)   
+   
 # CHECKPOINT UPDATE
 
 ### Checkpoint Update
