@@ -119,6 +119,47 @@ The breakups shown in the graph below are the major portions where the optimizat
 
 ## PART 2 - Homography and Blending
 
+(A) BLENDING
+
+At the final pipeline stage, various transformations are performed to the stitched image to preserve the geometry structure. The size of the image is now known. The next stage of correction is blending; to achieve seamless transformation from image to image. At the overlapping regions of the image, the algorithm calculates each pixel value based on some weights. The weight calculation is determined by the x-distance of the pixel from the centre.
+
+* Scope for parallelization:
+
+It was found that blending took up a significant amount of computation time in the image-stitching pipeline. Exploring the code for opportunities to parallelize, we found that: 
+The updation of the each floating-point pixel value is governed by arithmetic operations. The same instruction stream is used across multiple data. 
+Computation is performed across pixels, each of which is calculated independently, having no dependencies with other pixels.
+Due to available data-parallelism, it was decided that vectorization could be implemented to achieve speedup.
+
+* OpenPano implementation:
+
+The code was run on the GHC machines and already had significant amount of parallelization by exploiting multi-threaded execution across eight cores using OPenMP. While the iterations were performed in parallel, the data was being calculated at the rate of only one value per iteration.
+
+* SIMD baseline implementation:
+
+Using SSE2 vector instrinsics, four 32-bit floats are loaded at the same time, enabling the updation of four pixel values per iteration. Masking is implemented to perform appropriate computation to the pixel based on the conditional weights.
+
+* SIMD optimized implementation:
+
+SSE2 vector intrinsics are used again but SIMD branching is eliminated from the computations. This is done by exploiting the advantage that each pixel has three channel values that need to be updated, thus loading only these three floats into the four-lane vector. Since each vector corresponds to the same pixel, there is no divergence within the vector. 
+
+### Results:
+
+The SIMD baseline implementation achieved marginally better speedup than the original OpenPano implementation, if not the same performance.
+
+The SIMD optimized implementation fared much better with speedup ranging from 1.2x to 1.9x.
+
+* Challenges:
+
+Based on observations of the speedup , the following conclusions can be made:
+
+Due to the conditional nature of the computations involved, there is high divergence. This resulted in sub-optimal utilization of the vector lanes and peak performance was not achieved. This is the case when the unoptimized SIMD baseline code is used.
+
+Learning from the above, a more optimized version of SIMD implementation is used, which eliminates the obstacles to speedup caused before. Speedup is significantly more noticeable, but the lack of utilization of one out of the four lanes in the vector affects the performance to an extent. 
+
+There are more operations to the blending, such as inverse transformation and bilinear interpolation with nearby pixels. Due to their sequential nature, they contribute to decrease in speedup.
+
+Graph: The graph indicates the execution time in milliseconds of the various implementations of the blending stage as explained above. For a wider perspective, the blending is performed for image-stitching on a range of number of images and image sizes. All implementations were run on the CPUs of the GHC machine cluster (Intel Core i7 3.2 GHz 8-core processors).
+
 ----
 
 ### Division of Work
