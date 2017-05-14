@@ -1,0 +1,90 @@
+
+Overall: 8.826 ms ; Only GPU computation: 1.438 ms
+Overall: 8.925 ms ; Only GPU computation: 1.262 ms
+Overall: 6.459 ms ; Only GPU computation: 0.901 ms
+Overall: 2.962 ms ; Only GPU computation: 1.041 ms
+Overall: 3.821 ms ; Only GPU computation: 0.768 ms
+Overall: 9.379 ms ; Only GPU computation: 3.221 ms
+
+Overall: 8.659 ms ; Only GPU computation: 3.748 ms
+Overall: 9.318 ms ; Only GPU computation: 3.085 ms
+Overall: 2.545 ms ; Only GPU computation: 0.554 ms
+Overall: 8.780 ms ; Only GPU computation: 2.686 ms
+Overall: 1.849 ms ; Only GPU computation: 0.422 ms
+Overall: 2.349 ms ; Only GPU computation: 0.597 ms
+
+Overall: 0.817 ms ; Only GPU computation: 0.324 ms
+Overall: 11.187 ms ; Only GPU computation: 4.622 ms
+Overall: 4.011 ms ; Only GPU computation: 0.690 ms
+Overall: 13.809 ms ; Only GPU computation: 5.785 ms
+Overall: 2.337 ms ; Only GPU computation: 0.574 ms
+Overall: 1.712 ms ; Only GPU computation: 0.476 ms
+
+Overall: 4.882 ms ; Only GPU computation: 0.801 ms
+Overall: 1.857 ms ; Only GPU computation: 0.649 ms
+Overall: 2.194 ms ; Only GPU computation: 0.735 ms
+Overall: 5.539 ms ; Only GPU computation: 1.175 ms
+Overall: 8.508 ms ; Only GPU computation: 1.371 ms
+Overall: 10.681 ms ; Only GPU computation: 2.848 ms
+
+Overall: 5.084 ms ; Only GPU computation: 3.017 ms
+Overall: 1.516 ms ; Only GPU computation: 0.485 ms
+Overall: 1.396 ms ; Only GPU computation: 0.506 ms
+Overall: 14.913 ms ; Only GPU computation: 6.991 ms
+Overall: 14.850 ms ; Only GPU computation: 6.966 ms
+Overall: 10.457 ms ; Only GPU computation: 3.279 ms
+
+Overall: 0.881 ms ; Only GPU computation: 0.193 ms
+Overall: 1.050 ms ; Only GPU computation: 0.463 ms
+Overall: 0.933 ms ; Only GPU computation: 0.333 ms
+Overall: 1.444 ms ; Only GPU computation: 0.314 ms
+Overall: 1.010 ms ; Only GPU computation: 0.350 ms
+Overall: 0.719 ms ; Only GPU computation: 0.156 ms
+
+Overall: 14.516 ms ; Only GPU computation: 6.708 ms
+Overall: 29.063 ms ; Only GPU computation: 7.392 ms
+Overall: 5.601 ms ; Only GPU computation: 0.504 ms
+Overall: 3.482 ms ; Only GPU computation: 1.206 ms
+Overall: 5.051 ms ; Only GPU computation: 0.712 ms
+Overall: 4.030 ms ; Only GPU computation: 0.988 ms
+
+Overall: 2.159 ms ; Only GPU computation: 0.475 ms
+Overall: 1.530 ms ; Only GPU computation: 0.526 ms
+Overall: 5.764 ms ; Only GPU computation: 3.275 ms
+Overall: 9.111 ms ; Only GPU computation: 5.054 ms
+Overall: 9.274 ms ; Only GPU computation: 3.114 ms
+Overall: 2.690 ms ; Only GPU computation: 1.276 ms
+
+Overall: 0.912 ms ; Only GPU computation: 0.165 ms
+Overall: 1.737 ms ; Only GPU computation: 0.855 ms
+Overall: 7.280 ms ; Only GPU computation: 3.222 ms
+Overall: 1.404 ms ; Only GPU computation: 0.456 ms
+Overall: 2.341 ms ; Only GPU computation: 0.685 ms
+Overall: 0.509 ms ; Only GPU computation: 0.153 ms
+
+Overall: 7.372 ms ; Only GPU computation: 2.718 ms
+Overall: 2.557 ms ; Only GPU computation: 0.763 ms
+Overall: 6.161 ms ; Only GPU computation: 0.692 ms
+Overall: 2.923 ms ; Only GPU computation: 0.741 ms
+Overall: 6.788 ms ; Only GPU computation: 0.896 ms
+Overall: 4.420 ms ; Only GPU computation: 1.849 ms
+
+Overall: 13.884 ms ; Only GPU computation: 4.730 ms
+Overall: 2.111 ms ; Only GPU computation: 0.845 ms
+Overall: 1.808 ms ; Only GPU computation: 0.379 ms
+Overall: 3.791 ms ; Only GPU computation: 0.803 ms
+Overall: 1.965 ms ; Only GPU computation: 0.447 ms
+Overall: 2.291 ms ; Only GPU computation: 0.584 ms
+
+Overall: 7.067 ms ; Only GPU computation: 3.632 ms
+Overall: 1.897 ms ; Only GPU computation: 0.784 ms
+Overall: 1.109 ms ; Only GPU computation: 0.170 ms
+Overall: 4.494 ms ; Only GPU computation: 2.619 ms
+Overall: 0.799 ms ; Only GPU computation: 0.156 ms
+Overall: 1.045 ms ; Only GPU computation: 0.353 ms
+calc_feature(): 4147.859000 milliseconds.
+BuildTrees: 52.603000 milliseconds.
+pairwise_match(): 366.342000 milliseconds.
+Estimate Camera: 24.185000 milliseconds.
+blend(): 103.254000 milliseconds.
+Writing image: 107.850000 milliseconds.
